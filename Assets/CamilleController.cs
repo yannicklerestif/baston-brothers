@@ -32,8 +32,8 @@ public class CamilleController : MonoBehaviour
             new Vector2(GroundMargin, -GroundMargin), 0);
         bool isGrounded = collider2Ds.Length == 2;
 
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = Input.GetKey(KeyCode.LeftArrow) ? -1 : Input.GetKey(KeyCode.RightArrow) ? 1 : 0;
+        float v = Input.GetKey(KeyCode.DownArrow) ? -1 : Input.GetKey(KeyCode.UpArrow) ? 1 : 0;
 
         float vSpeed_ = body.velocity.y;
         float hSpeed_ = speed * h;

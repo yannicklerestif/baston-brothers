@@ -13,6 +13,8 @@ public class OscarController : MonoBehaviour
     public GameObject bullet;
     
     private Collider2D _collider2D;
+
+    public Animator animator;
     
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,7 @@ public class OscarController : MonoBehaviour
             new Vector2(GroundMargin, -GroundMargin), 0);
         bool isGrounded = collider2Ds.Length == 2;
 
+       
         float h = Input.GetKey(KeyCode.Z) ? -1 : Input.GetKey(KeyCode.C) ? 1 : 0;
         float v = Input.GetKey(KeyCode.X) ? -1 : Input.GetKey(KeyCode.S) ? 1 : 0;
 
@@ -45,6 +48,16 @@ public class OscarController : MonoBehaviour
             var x = _collider2D.bounds.max.x + 1.25f;
             var y = _collider2D.bounds.min.y + 2.5f;
             Instantiate(bullet, new Vector3(x, y, 0), Quaternion.identity);
+        }
+        
+        if (v < 0)
+        {
+            animator.SetBool("crouched", true);
+        }
+
+        if (!isGrounded || v >= 0)
+        {
+            animator.SetBool("crouched", false);
         }
         
         body.velocity = new Vector2(hSpeed_, vSpeed_);
