@@ -25,7 +25,6 @@ public class CamilleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         var bottomX = _collider2D.bounds.center.x;
         var bottomY = _collider2D.bounds.center.y - _collider2D.bounds.extents.y;
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(new Vector2(bottomX, bottomY),
@@ -43,20 +42,13 @@ public class CamilleController : MonoBehaviour
             vSpeed_ = v * vSpeed;
         }
 
-        if (v < 0)
-        {
-            animator.SetBool("crouched", true);
-        }
-
-        if (!isGrounded || v >= 0)
-        {
-            animator.SetBool("crouched", false);
-        }
+        bool isCrouched = v < 0 && isGrounded;
+        animator.SetBool("crouched", isCrouched);
 
         if (Input.GetKeyUp(KeyCode.P))
         {
             var x = _collider2D.bounds.min.x;
-            var y = _collider2D.bounds.min.y + 2.71f;
+            var y = _collider2D.bounds.min.y + (isCrouched ? 1.58f : 2.71f);
             Instantiate(soundWave, new Vector3(x, y, 0), Quaternion.identity);
         }
         

@@ -42,24 +42,17 @@ public class OscarController : MonoBehaviour
         {
             vSpeed_ = v * vSpeed;
         }
-
+        
+        bool isCrouched = v < 0 && isGrounded;
+        animator.SetBool("crouched", isCrouched);
+        
         if (Input.GetKeyUp(KeyCode.Q))
         {
             var x = _collider2D.bounds.max.x + 1.25f;
-            var y = _collider2D.bounds.min.y + 2.5f;
+            var y = _collider2D.bounds.min.y + (isCrouched ? 1.73f : 2.5f);
             Instantiate(bullet, new Vector3(x, y, 0), Quaternion.identity);
         }
-        
-        if (v < 0)
-        {
-            animator.SetBool("crouched", true);
-        }
 
-        if (!isGrounded || v >= 0)
-        {
-            animator.SetBool("crouched", false);
-        }
-        
         body.velocity = new Vector2(hSpeed_, vSpeed_);
     }
 
