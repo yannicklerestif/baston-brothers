@@ -16,6 +16,8 @@ public class CamilleController : MonoBehaviour
 
     public Animator animator;
     
+    public float HealthPoints = 1;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -53,5 +55,10 @@ public class CamilleController : MonoBehaviour
         }
         
         body.velocity = new Vector2(hSpeed_, vSpeed_);
+    }
+    
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        HealthPoints -= 0.05f;
     }
 }
