@@ -11,7 +11,7 @@ public class OscarController : MonoBehaviour
     public Rigidbody2D body;
 
     public GameObject bullet;
-    
+    public EventManagerController EventManager;
     private Collider2D _collider2D;
 
     public Animator animator;
